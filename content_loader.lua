@@ -79,12 +79,6 @@ function flatten_metadata(subject, unpack)
       if type(k) == "number" then
         if type(v) == "table" then
           for ki, vi in pairs(v) do
-            -- local element_family_flat = flatten_metadata(vi, false)
-            -- if unpack then
-            --   multi_print(string.format("\\rarrow{themecontrastdark} \\normalsize{\\textcolor{accent}{%s}} & %s \\\\", ki, element_family_flat))
-            -- else
-            --   table.insert(element, string.format("\\textbf{%s}: %s", ki, element_family_flat))
-            -- end
             handle_metadata_level(ki, vi, element, unpack)
           end
         else
@@ -92,12 +86,6 @@ function flatten_metadata(subject, unpack)
         end
       else
         handle_metadata_level(k, v, element, unpack)
-        -- local element_family_flat = flatten_metadata(v, false)
-        -- if unpack then
-        --   multi_print(string.format("\\rarrow{themecontrastdark} \\normalsize{\\textcolor{accent}{%s}} & %s \\\\", k, element_family_flat))
-        -- else
-        --   table.insert(element, string.format("\\textbf{%s}: %s", k, element_family_flat))
-        -- end
       end
     end
     
