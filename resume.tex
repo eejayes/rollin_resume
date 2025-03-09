@@ -1,0 +1,328 @@
+\documentclass[11pt]{article}[a4paper]
+\usepackage{enumitem}    % For customizable lists
+\usepackage{tikz}        % For creating custom text graphics
+\usepackage{moresize}
+\usepackage{luacode}
+\usepackage{luapackageloader}
+\usepackage{tcolorbox}
+\usepackage{changepage}
+\usepackage{xcolor}
+\usepackage{changepage}
+\usepackage{calc} % used for line width arithmetic
+\usepackage{ifthen}
+\usepackage{tabularx}
+\usepackage{array} % Used to support column type formatting (e.g. >{decl.})
+\usepackage{tikz} % for drawing arrows
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\sfdefault} % Set sans-serif as the default
+\usepackage[T1]{fontenc} % Ensure proper font encoding
+
+% Define custom colors
+\definecolor{customblue}{HTML}{1A73E8}
+\definecolor{darkgray}{HTML}{555555}
+
+
+\newcommand{\regionconfig}{1}
+\newcommand{\colorconfig}{0}
+
+\showboxbreadth=0
+\showboxdepth=0
+
+\ifcase\regionconfig
+  \def\typeconvention{Resume}
+  \def\audienceregion{America}
+\else
+  \def\typeconvention{C.V.}
+  \def\audienceregion{Europe}
+\fi
+
+\definecolor{lightgray}{RGB}{210, 210, 210}
+%light background / accent color
+\definecolor{darkened_orange}{RGB}{191,113,0}
+
+\definecolor{base03}{RGB}{237,237,237}    % cream
+    \definecolor{mygrey}{RGB}{110,110,110}
+% Define other variables based on configuration parameter
+\ifcase\colorconfig
+    % Code to execute for case 0
+    \definecolor{light-orange}{RGB}{255,150,0}
+
+    \colorlet{themelight}{light-orange}
+    \colorlet{accent}{light-orange}
+    \colorlet{themecontrastdark}{mygrey}
+    \colorlet{themecontrastlight}{lightgray}
+    \colorlet{softcol}{base03}
+    \colorlet{themedark}{darkened_orange}
+\or
+    \definecolor{background}{RGB}{253,246,227}  % cream
+    \definecolor{foreground}{RGB}{101,123,131}  % bluish gray
+    \definecolor{base00}{RGB}{131,148,150}    % darker gray
+    \definecolor{base01}{RGB}{147,161,161}    % medium gray
+    \definecolor{base02}{RGB}{238,232,213}    % light beige
+    \definecolor{base03}{RGB}{253,246,227}    % cream
+
+    \definecolor{accent00}{RGB}{181,137,0}    % yellow
+    \definecolor{accent01}{RGB}{203,75,22}    % orange
+    \definecolor{accent02}{RGB}{220,50,47}    % red
+    \definecolor{accent03}{RGB}{211,54,130}   % magenta
+    \definecolor{accent04}{RGB}{108,113,196}  % violet
+    \definecolor{accent05}{RGB}{38,139,210}   % blue
+    \definecolor{accent06}{RGB}{42,161,152}   % cyan
+    \definecolor{accent07}{RGB}{133,153,0}    % green
+
+    \colorlet{themelight}{base00}
+    \colorlet{accent}{accent02}
+    \colorlet{themecontrastdark}{foreground}
+    \colorlet{themecontrastlight}{lightgray}
+    \colorlet{softcol}{base02}
+    \colorlet{themedark}{darkened_orange}
+\or
+      % Code to execute for case 0
+    \definecolor{zen-green}{RGB}{57,100,83}
+    \definecolor{zen-yellow}{RGB}{251,180,12}
+
+    \colorlet{themelight}{zen-yellow}
+    \colorlet{accent}{zen-yellow}
+    \colorlet{themecontrastdark}{zen-green}
+    \colorlet{themecontrastlight}{lightgray}
+    \colorlet{softcol}{base03}
+    \colorlet{themedark}{darkened_orange}
+\or
+    \definecolor{vividred}{RGB}{174, 31, 51}
+    \definecolor{lightvividred}{RGB}{215,143,153}
+    \definecolor{torcdarkgrey}{RGB}{81,81,81}
+
+    \colorlet{themelight}{vividred}
+    \colorlet{accent}{vividred}
+    \colorlet{themecontrastdark}{mygrey}
+    \colorlet{themecontrastlight}{lightgray}
+    \colorlet{softcol}{base03}
+    \colorlet{themedark}{vividred}
+
+\else
+    \colorlet{themelight}{black}
+    \colorlet{accent}{black}
+    \colorlet{themecontrastdark}{gray}
+    \colorlet{themecontrastlight}{lightgray}
+    \colorlet{softcol}{white}
+    \colorlet{themedark}{darkened_orange}
+\fi
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=customblue,
+    citecolor=darkgray,
+    urlcolor=customblue
+}
+
+% Margin strategy
+% Each section or environment shall be given ability to use the entire screen width, and thus should be provided access to it. However a top an bottom margin should be consistent across over the entire document, except for the header on the first page.
+%
+% Therefore globally a top and bottom margin is set, and left and right margins are non-existent.
+\newcommand{\myleftmargin}{0cm}
+\newcommand{\myrightmargin}{0cm}
+\newcommand{\mytopmargin}{1cm}
+\newcommand{\mybottommargin}{1cm}
+% Suppress page numbering
+\pagestyle{empty}
+
+%define page styles using geometry
+\usepackage[top=\mytopmargin, bottom=\mybottommargin, left=\myleftmargin, right=\myrightmargin]{geometry}
+
+% Remove header space
+\setlength{\headheight}{0mm}
+% Don't indent paragraphs
+
+\usetikzlibrary{shapes, backgrounds,mindmap, trees}
+% include the left arrow into a tikz picture
+% param1: fill color
+%
+% a six pointed arrow poiting to the right
+\newcommand{\chevronright}{(0,0) -- (0.2,0) -- (0.3,0.2) -- (0.2,0.4) -- (0,0.4) -- (0.1,0.2) -- cycle;}
+
+% include the left arrow into a tikz picture
+% param1: fill color
+%
+\newcommand{\rarrow}[1]
+{\begin{tikzpicture}[scale=0.58]
+	 \filldraw[fill=#1!100,draw=#1!100!black]  \chevronright
+ \end{tikzpicture}
+}
+
+\newcommand{\rarrowsmall}[1]
+{\begin{tikzpicture}[scale=0.4]
+	 \filldraw[fill=#1!100,draw=#1!100!black]  \chevronright
+ \end{tikzpicture}
+}
+
+
+% a six pointed arrow poiting to the left
+\newcommand{\chevronleft}{(0,0.2) -- (0.1,0) -- (0.3,0) -- (0.2,0.2) -- (0.3,0.4) -- (0.1,0.4) -- cycle;}
+
+% include the right arrow into a tikz picture
+% param1: fill color
+%
+\newcommand{\larrow}[1]
+{\begin{tikzpicture}[scale=0.58]
+    \filldraw[fill=#1!100,draw=#1!100!black]  \chevronleft
+  \end{tikzpicture}
+}
+
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox[auto counter, number within=section]{metasectionbox}[1]{
+  enhanced,
+  breakable=false,
+  colback=#1,
+  colframe=#1,
+  sharp corners,
+  before skip=0pt, after skip=0pt
+}
+
+\newtcolorbox[auto counter, number within=section]{mypagebox}[2][]{
+  enhanced,
+  breakable,
+  colback=#2,
+  colframe=#2,
+  left=1cm,
+  right=3cm, % Reserve space for margin comments
+  overlay unbroken and first={
+    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{2cm}{\rotatebox{-90}{#1}}};
+  },
+  overlay middle and last={
+    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{2cm}{\rotatebox{-90}{#1}}};
+  }
+}
+
+
+\renewcommand{\labelitemi}{\rarrow{themelight}}
+\renewcommand{\labelitemii}{\rarrowsmall{themedark}}
+\renewcommand{\labelitemiii}{\rarrowsmall{themecontrastdark}}
+
+%============================================================================%
+% Simpler bibsection for CV sections
+% ====================
+% ENVIRONMENT
+% ====================
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em} %1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newenvironment{bibsection}{
+  \begin{enumerate}{}
+    {
+      \setlength{\leftmargin}{\bibhang}%
+      \setlength{\itemindent}{-\leftmargin}%
+      \setlength{\itemsep}{\bibsep}%
+      \setlength{\parsep}{\z@}%
+      \setlength{\partopsep}{0pt}%
+      \setlength{\topsep}{0pt}
+    }
+  }
+  {\end{enumerate}\vspace{-.6\baselineskip}}
+\makeatother
+
+
+\begin{document}
+\vspace*{-\mytopmargin}
+\begin{adjustwidth}{-\myleftmargin}{-\myrightmargin}
+%----------------------------------------------------------------------------------------
+% HEADLINE / BASIC INFORMATION
+%----------------------------------------------------------------------------------------
+%\fcolorbox{themecontrastdark}{themecontrastdark}{
+\begin{metasectionbox}{themecontrastdark}
+  \begin{center}
+    \begin{luacode}
+      target = "profile"
+      spec = "resources/resume_content.yaml"
+      dofile("content_loader.lua")
+    \end{luacode}
+  \end{center}
+\end{metasectionbox}
+%}
+%----------------------------------------------------------------------------------------
+% SUMMARY
+%----------------------------------------------------------------------------------------
+%\fcolorbox{themelight}{themelight}{
+\begin{metasectionbox}{themelight}
+    \begin{center}
+      \large
+      \rarrow{white}\rarrow{white}%
+        \begin{luacode}
+          target = "summary_statement"
+          spec = "resources/resume_content.yaml"
+          dofile("content_loader.lua")
+        \end{luacode}
+      \larrow{white}\larrow{white}
+    \end{center}
+\end{metasectionbox}
+%}
+%----------------------------------------------------------------------------------------
+% META
+%----------------------------------------------------------------------------------------
+\begin{metasectionbox}{white}
+%  \parbox[c]{\linewidth}{
+    \vspace{0.5em}
+    \ifthenelse{\equal{\audienceregion}{Europe}}{
+      \def\metaspace{0.65}
+      \begin{minipage}[c]{0.25\textwidth} % Adjust overall width
+        \centering
+        \includegraphics[scale=0.182]{resources/profile_picture.jpeg}
+      \end{minipage}
+    }
+    {\def\metaspace{0.93}}
+    \centering
+    \begin{minipage}[c]{\metaspace\textwidth}
+      \begin{luacode}
+          target = "metasection"
+          spec = "resources/resume_content.yaml"
+          dofile("content_loader.lua")
+        \end{luacode}
+    \end{minipage}
+\end{metasectionbox}
+% Needed to return to normal margins after because title bar comsumes the whole page.
+\end{adjustwidth}
+
+
+\pagecolor{themecontrastlight}
+%----------------------------------------------------------------------------------------
+% EXPERIENCE - pg1
+%----------------------------------------------------------------------------------------
+
+\newlength{\categorylength}
+
+\def\categoryname{\HUGE{\textsc{Experience}}}
+\settowidth{\categorylength}{\makebox[0pt][l][\categoryname]}
+\colorlet{linecol}{white}
+\begin{mypagebox}[\shortstack{
+     \categoryname  \\
+     \hspace{12pt} \\
+     \textcolor{themelight}{\rule{\categorylength}{2pt}}
+   }]{themecontrastlight}
+\begin{luacode}
+  target = "experience"
+  spec = "resources/resume_content.yaml"
+  dofile("content_loader.lua")
+\end{luacode}
+\end{mypagebox}
+
+
+\def\categoryname{\HUGE{\textsc{Education}}}
+\settowidth{\categorylength}{\makebox[0pt][l][\categoryname]}
+\colorlet{linecol}{themecontrastlight}
+\begin{mypagebox}[\shortstack{
+     \categoryname  \\
+     \hspace{12pt} \\
+     \textcolor{themelight}{\rule{\categorylength}{2pt}}
+   }]{softcol}
+\begin{luacode}
+  target = "education"
+  spec = "resources/resume_content.yaml"
+  dofile("content_loader.lua")
+\end{luacode}
+\end{mypagebox}
+
+\end{document}

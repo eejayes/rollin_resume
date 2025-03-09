@@ -1,0 +1,133 @@
+profile:
+  name: Homer Simpson
+  residence: Springfield, IL, USA
+  email: homer@simpsons.com
+  phone: +1 (217) 777-7777
+  role: Master of the Universe
+  summary:
+       Clever and resourceful marketing wizard, legal expert, and medical researcher with a superb ability to lead people and cultivate consensus.
+
+experience:
+  - - Super Widgets
+    - 2020 -- present
+    - Head of Urban Planning
+    - Summary:
+        - Led urban development strategies to ensure sustainable growth, efficient land use, and improved infrastructure. Managed public engagement initiatives and policy implementation to enhance city planning.
+    - Zoning \& Land Use:
+        - Developed and enforced zoning regulations to balance residential, commercial, and industrial growth.
+        - Led initiatives to modernize urban planning guidelines in response to population growth.
+    - Transportation Infrastructure:
+        - Oversaw the expansion of public transit networks to improve city-wide connectivity{:}:
+          - Coordinated with metro and bus services to enhance scheduling efficiency.
+          - Secured funding for transit projects through government grants and private investments.
+        - Spearheaded efforts to integrate sustainable transport solutions, including bike lanes and pedestrian-friendly zones{:}
+    - Community Engagement:
+        - Facilitated public forums and consultations to incorporate community feedback into city planning{:}:
+          - Organized quarterly town hall meetings to address resident concerns.
+          - Developed interactive online tools for citizen participation in urban projects.
+        - Partnered with local organizations to promote urban renewal projects.
+
+  - - Weird Widgets
+    - 2017 -- 2020
+    - Chief Archivist
+    - Summary:
+        - Oversaw the acquisition, preservation, and public accessibility of historical artifacts. Led exhibition curation and archival research initiatives to promote historical education.
+    - Collection Management:
+        - Supervised the cataloging and preservation of historical artifacts spanning multiple centuries.
+        - Implemented a digital archiving system to enhance accessibility for researchers and the public.:
+          - Partnered with academic institutions to provide remote access to digitized archives.
+          - Ensured compliance with international archival standards.
+    - Exhibition Curation:
+        - Designed and coordinated rotating exhibits to showcase lesser-known historical narratives.:
+          - Conducted in-depth research to authenticate artifacts and contextualize displays.
+          - Developed interactive exhibits incorporating augmented reality experiences.
+        - Collaborated with international institutions to bring traveling exhibitions to the museum.
+    - Research \& Publications:
+        - Published scholarly articles on archival best practices and historical preservation.:
+          - Contributed to peer-reviewed journals and presented at international conferences.
+        - Provided expert consultation on documentary projects and historical reconstructions.:
+          - Assisted film producers and authors with accurate historical portrayals.
+  - - Long Widgets
+    - 2016 -- 2017
+    - Director of Environmental Conservation
+    - Summary:
+        - Directed conservation efforts to protect ecosystems, promote sustainability, and influence environmental policy. Managed research projects, advocacy campaigns, and corporate partnerships for ecological preservation.
+    - Wildlife Protection:
+        - Led conservation programs to protect endangered species and restore natural habitats.
+        - Partnered with government agencies to strengthen environmental policies and regulations.
+    - Sustainability Advocacy:
+        - Organized public campaigns to raise awareness about climate change and sustainable living.:
+          - Developed educational materials for schools and community centers.
+          - Coordinated social media outreach to engage younger demographics.
+        - Developed corporate sustainability partnerships to reduce industrial ecological footprints.
+
+education:
+- - Hudson Institute of Urban Studies, Boston, MA
+  - 2015
+  - M.S. Urban Planning
+  - \textbf{Honors:} Magna Cum Laude
+  - Additional pursuits:
+      - Specialized coursework in sustainable city development
+      - Research assistant on public transportation efficiency
+
+- - Pacific Northwest University, Portland, OR
+  - 2008
+  - B.A. History \& Archival Science
+  - \textbf{Honors:} Cum Laude
+  - Additional pursuits:
+      - Internship at the Oregon State Historical Society
+      - Thesis on digitization of medieval manuscripts
+
+metasection:
+  - Status: Conservationist \& Urban Planning Specialist
+  - Spoken languages:
+    - English
+    - Spanish
+  - Environmental Conservation:
+    - Habitat Restoration:
+        - Wetland Reclamation
+        - Forest Regeneration
+    - Wildlife Protection:
+        - Endangered Species Monitoring
+        - Invasive Species Management
+    - Ecosystem Services:
+        - Carbon Sequestration
+        - Biodiversity Conservation
+  - Urban Planning:
+    - Sustainable Development:
+        - Mixed-Use Zoning
+        - Energy-Efficient Buildings
+    - Green Infrastructure:
+        - Urban Forestry
+        - Stormwater Management
+  - Archiving \& Preservation:
+    - Digital Archiving:
+        - Metadata Standards
+        - Cloud Storage Solutions
+    - Document Restoration:
+        - Paper Conservation
+        - Digital Scanning
+    - Collection Management:
+        - Cataloging
+        - Access Control
+  - Tools:
+    - GIS:
+        - Spatial Analysis
+        - Remote Sensing
+    - AutoCAD:
+        - 3D Modeling
+        - Site Planning
+    - Archival Software:
+        - ArchivesSpace
+        - ContentDM
+    - Drones for Environmental Monitoring:
+        - Aerial Surveys
+        - Habitat Mapping
+  - Standards:
+    - LEED (Leadership in Energy \& Environmental Design)
+    - ISO 14001 (Environmental Management)
+    - ANSI/NISO Z39.87 (Digital Preservation)
+
+publications:
+  - author: \textbf{Smith, J.} and Johnson, A.
+    title: \href{http://journals.sci.org/2023-03-2589/}{``Innovative Approaches to Urban Green Spaces{:} Enhancing Biodiversity in City Parks," \emph{Urban Ecology Journal}, 2023, https://doi.org/10.1234/uej.2023.03.2589}
