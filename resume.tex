@@ -19,96 +19,13 @@
 \renewcommand{\familydefault}{\sfdefault} % Set sans-serif as the default
 \usepackage[T1]{fontenc} % Ensure proper font encoding
 
+% Configure style in an external file
+\providecommand{\configfile}{config-default}
+\input{\configfile}
+
 % Define custom colors
 \definecolor{customblue}{HTML}{1A73E8}
 \definecolor{darkgray}{HTML}{555555}
-
-
-\newcommand{\regionconfig}{1}
-\newcommand{\colorconfig}{0}
-
-\showboxbreadth=0
-\showboxdepth=0
-
-\ifcase\regionconfig
-  \def\typeconvention{Resume}
-  \def\audienceregion{America}
-\else
-  \def\typeconvention{C.V.}
-  \def\audienceregion{Europe}
-\fi
-
-\definecolor{lightgray}{RGB}{210, 210, 210}
-%light background / accent color
-\definecolor{darkened_orange}{RGB}{191,113,0}
-
-\definecolor{base03}{RGB}{237,237,237}    % cream
-    \definecolor{mygrey}{RGB}{110,110,110}
-% Define other variables based on configuration parameter
-\ifcase\colorconfig
-    % Code to execute for case 0
-    \definecolor{light-orange}{RGB}{255,150,0}
-
-    \colorlet{themelight}{light-orange}
-    \colorlet{accent}{light-orange}
-    \colorlet{themecontrastdark}{mygrey}
-    \colorlet{themecontrastlight}{lightgray}
-    \colorlet{softcol}{base03}
-    \colorlet{themedark}{darkened_orange}
-\or
-    \definecolor{background}{RGB}{253,246,227}  % cream
-    \definecolor{foreground}{RGB}{101,123,131}  % bluish gray
-    \definecolor{base00}{RGB}{131,148,150}    % darker gray
-    \definecolor{base01}{RGB}{147,161,161}    % medium gray
-    \definecolor{base02}{RGB}{238,232,213}    % light beige
-    \definecolor{base03}{RGB}{253,246,227}    % cream
-
-    \definecolor{accent00}{RGB}{181,137,0}    % yellow
-    \definecolor{accent01}{RGB}{203,75,22}    % orange
-    \definecolor{accent02}{RGB}{220,50,47}    % red
-    \definecolor{accent03}{RGB}{211,54,130}   % magenta
-    \definecolor{accent04}{RGB}{108,113,196}  % violet
-    \definecolor{accent05}{RGB}{38,139,210}   % blue
-    \definecolor{accent06}{RGB}{42,161,152}   % cyan
-    \definecolor{accent07}{RGB}{133,153,0}    % green
-
-    \colorlet{themelight}{base00}
-    \colorlet{accent}{accent02}
-    \colorlet{themecontrastdark}{foreground}
-    \colorlet{themecontrastlight}{lightgray}
-    \colorlet{softcol}{base02}
-    \colorlet{themedark}{darkened_orange}
-\or
-      % Code to execute for case 0
-    \definecolor{zen-green}{RGB}{57,100,83}
-    \definecolor{zen-yellow}{RGB}{251,180,12}
-
-    \colorlet{themelight}{zen-yellow}
-    \colorlet{accent}{zen-yellow}
-    \colorlet{themecontrastdark}{zen-green}
-    \colorlet{themecontrastlight}{lightgray}
-    \colorlet{softcol}{base03}
-    \colorlet{themedark}{darkened_orange}
-\or
-    \definecolor{vividred}{RGB}{174, 31, 51}
-    \definecolor{lightvividred}{RGB}{215,143,153}
-    \definecolor{torcdarkgrey}{RGB}{81,81,81}
-
-    \colorlet{themelight}{vividred}
-    \colorlet{accent}{vividred}
-    \colorlet{themecontrastdark}{mygrey}
-    \colorlet{themecontrastlight}{lightgray}
-    \colorlet{softcol}{base03}
-    \colorlet{themedark}{vividred}
-
-\else
-    \colorlet{themelight}{black}
-    \colorlet{accent}{black}
-    \colorlet{themecontrastdark}{gray}
-    \colorlet{themecontrastlight}{lightgray}
-    \colorlet{softcol}{white}
-    \colorlet{themedark}{darkened_orange}
-\fi
 
 \hypersetup{
     colorlinks=true,
