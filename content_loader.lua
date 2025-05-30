@@ -115,11 +115,9 @@ end
 
 local function simple_list(yaml_data)
   multi_print("\\begin{bibsection}")
---  multi_print("\\begin{itemize}")
   for k, v in pairs(yaml_data) do
     multi_print("\\item[] " .. v["author"] .. " " .. v["title"])
   end
---  multi_print("\\end{itemize}")
   multi_print("\\end{bibsection}")
 end
 
