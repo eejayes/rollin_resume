@@ -30,7 +30,7 @@ local function handle_level(data, index, indentation)
     elseif item_type == "table" then
       for kk, vv in pairs(data[i]) do
         multi_print(formatted_indentation .. "\\item " .. kk)
-        multi_print(formatted_indentation .. "\\begin{itemize}")
+        multi_print(formatted_indentation .. "\\begin{itemize}[itemsep=\\postnesteditemsep, parsep=0pt, topsep=\\postnestingitemtopsep, left=0pt]")
         handle_level(vv, 0, indentation + 4)
         multi_print(formatted_indentation .. "\\end{itemize}")
       end
@@ -39,22 +39,29 @@ local function handle_level(data, index, indentation)
 end
 
 
-local function cvevent(yaml_data)
-  -- Print the result
-  for _, v1 in pairs(yaml_data) do
+local function cvevent(yaml_data) 
+  for _, post in pairs(yaml_data) do
+    multi_print("\\vspace{\\postsep/2}")
     multi_print(
       string.format(
-        [[\vspace{1em}\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l r}
-\textbf{%s} \textcolor{themecontrastdark}{(%s)}&\textcolor{themecontrastdark}{%s}\\[4pt]
-\end{tabular*}\vspace{-12pt}\textcolor{linecol}{\hrule}]], v1[3], v1[1], v1[2] ))
+        [[
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l r}
+    \textbf{%s} \textcolor{themecontrastdark}{(%s)}&\textcolor{themecontrastdark}{%s}\\
+\end{tabular*}\vspace{-1em}\textcolor{linecol}{\hrule}]], post[3], post[1], post[2] ))
     local item_start_index = 4
-    if type(v1[item_start_index]) == "table" and v1[item_start_index]["Summary"] then
-      multi_print(string.format([[\vspace{1em}%s]], v1[item_start_index]["Summary"][1]))
+    if type(post[item_start_index]) == "table" and post[item_start_index]["Summary"] then
+
+      multi_print(string.format([[\vspace{\posttoptosummary}%s]], post[item_start_index]["Summary"][1]))
       item_start_index = item_start_index + 1
     end
-    multi_print(string.format([[\begin{itemize}]]))
-    handle_level(v1, item_start_index, 4)
-    multi_print([[\end{itemize}]])
+    -- An index exceeding the length of the current processing subject
+    -- confirms that there actually are items in the list to process.
+    if #post >= item_start_index then
+      multi_print("\\begin{itemize}[itemsep=\\posttopitemssep, parsep=0pt, topsep=\\posttitletoitemsep, left=0pt]")
+      handle_level(post, item_start_index, 4)
+      multi_print("\\end{itemize}")
+    end
+    multi_print("\\vspace{\\postsep/2}")
   end
 end
 

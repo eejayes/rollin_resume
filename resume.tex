@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}[a4paper]
-\usepackage{enumitem}    % For customizable lists
-\usepackage{tikz}        % For creating custom text graphics
+\usepackage{enumitem}    % List customization
+\usepackage{tikz}
 \usepackage{moresize}
 \usepackage{luacode}
 \usepackage{luapackageloader}
@@ -19,34 +19,58 @@
 \renewcommand{\familydefault}{\sfdefault} % Set sans-serif as the default
 \usepackage[T1]{fontenc} % Ensure proper font encoding
 
-% Configure style in an external file
-\providecommand{\configfile}{config-default}
 \input{\configfile}
 
-% Define custom colors
-\definecolor{customblue}{HTML}{1A73E8}
-\definecolor{darkgray}{HTML}{555555}
+\newcommand{\regionconfig}{0}
+\newcommand{\colorconfig}{3}
 
+\showboxbreadth=0
+\showboxdepth=0
+
+\ifcase\regionconfig
+  \def\typeconvention{Resume}
+  \def\audienceregion{America}
+\else
+  \def\typeconvention{C.V.}
+  \def\audienceregion{Europe}
+\fi
+
+
+\definecolor{darkgray}{HTML}{555555}
+\definecolor{linkblue}{HTML}{1A73E8}
 \hypersetup{
     colorlinks=true,
-    linkcolor=customblue,
+    linkcolor=linkblue,
     citecolor=darkgray,
-    urlcolor=customblue
+    urlcolor=linkblue
 }
 
 % Margin strategy
-% Each section or environment shall be given ability to use the entire screen width, and thus should be provided access to it. However a top an bottom margin should be consistent across over the entire document, except for the header on the first page.
+% Each section or environment shall be given ability to use the entire screen
+% width, and thus should be provided access to it. However a top an bottom margin
+% should be consistent across over the entire document, except for the header on
+% the first page.
 %
 % Therefore globally a top and bottom margin is set, and left and right margins are non-existent.
 \newcommand{\myleftmargin}{0cm}
 \newcommand{\myrightmargin}{0cm}
-\newcommand{\mytopmargin}{1cm}
-\newcommand{\mybottommargin}{1cm}
+% Top page margin; does not effect first page because header reversed by the same amount
+\newcommand{\headermargin}{1cm}
+\newcommand{\footermargin}{1cm}
+\newcommand{\sectionvertsep}{0.5em} % Colorbox environment margins
+\newcommand{\posttitletoitemsep}{0.5em} % Separation between post title and items
+\newcommand{\postnesteditemsep}{0em} % Separation for all items nested under top level
+\newcommand{\postnestingitemtopsep}{0em} % Nesting items only (not leaves) are separated by this amount
+\newcommand{\posttopitemssep}{0.5em} % Main bullets under post are separated by this amount
+\newcommand{\posttoptosummary}{0.5em} % Space between summary and item list
+\newcommand{\postsep}{1em} %
+
+
 % Suppress page numbering
 \pagestyle{empty}
 
 %define page styles using geometry
-\usepackage[top=\mytopmargin, bottom=\mybottommargin, left=\myleftmargin, right=\myrightmargin]{geometry}
+\usepackage[top=\headermargin, bottom=\footermargin, left=\myleftmargin, right=\myrightmargin]{geometry}
 
 % Remove header space
 \setlength{\headheight}{0mm}
@@ -91,25 +115,28 @@
 
 \newtcolorbox[auto counter, number within=section]{metasectionbox}[1]{
   enhanced,
-  breakable=false,
+  breakable,
   colback=#1,
   colframe=#1,
   sharp corners,
   before skip=0pt, after skip=0pt
 }
-
 \newtcolorbox[auto counter, number within=section]{mypagebox}[2][]{
   enhanced,
   breakable,
   colback=#2,
   colframe=#2,
   left=1cm,
-  right=3cm, % Reserve space for margin comments
+  sharp corners,
+  before skip=0pt, after skip=0pt,
+  right=2cm, % Reserve space for margin comments
+  bottom=\sectionvertsep, % Section bottom sep
+  top=\sectionvertsep, % Section top sep
   overlay unbroken and first={
-    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{2cm}{\rotatebox{-90}{#1}}};
+    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{1.5cm}{\rotatebox{-90}{#1}}};
   },
   overlay middle and last={
-    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{2cm}{\rotatebox{-90}{#1}}};
+    \node[anchor=east, align=right] at (frame.east) {\parbox[t]{1.5cm}{\rotatebox{-90}{#1}}};
   }
 }
 
@@ -142,10 +169,8 @@
   {\end{enumerate}\vspace{-.6\baselineskip}}
 \makeatother
 
-
 \begin{document}
-\vspace*{-\mytopmargin}
-\begin{adjustwidth}{-\myleftmargin}{-\myrightmargin}
+\vspace*{-\headermargin}
 %----------------------------------------------------------------------------------------
 % HEADLINE / BASIC INFORMATION
 %----------------------------------------------------------------------------------------
@@ -180,8 +205,7 @@
 %----------------------------------------------------------------------------------------
 % META
 %----------------------------------------------------------------------------------------
-\begin{metasectionbox}{white}
-%  \parbox[c]{\linewidth}{
+\begin{mypagebox}{white}
     \vspace{0.5em}
     \ifthenelse{\equal{\audienceregion}{Europe}}{
       \def\metaspace{0.65}
@@ -190,7 +214,7 @@
         \includegraphics[scale=0.182]{resources/profile_picture.jpeg}
       \end{minipage}
     }
-    {\def\metaspace{0.93}}
+    {\def\metaspace{1}}
     \centering
     \begin{minipage}[c]{\metaspace\textwidth}
       \begin{luacode}
@@ -199,19 +223,16 @@
           dofile("content_loader.lua")
         \end{luacode}
     \end{minipage}
-\end{metasectionbox}
-% Needed to return to normal margins after because title bar comsumes the whole page.
-\end{adjustwidth}
+\end{mypagebox}
 
-
-\pagecolor{themecontrastlight}
 %----------------------------------------------------------------------------------------
 % EXPERIENCE - pg1
 %----------------------------------------------------------------------------------------
 
 \newlength{\categorylength}
 
-\def\categoryname{\HUGE{\textsc{Experience}}}
+\pagecolor{themecontrastlight}
+\def\categoryname{\LARGE{\textsc{Education}}}
 \settowidth{\categorylength}{\makebox[0pt][l][\categoryname]}
 \colorlet{linecol}{white}
 \begin{mypagebox}[\shortstack{
@@ -220,14 +241,14 @@
      \textcolor{themelight}{\rule{\categorylength}{2pt}}
    }]{themecontrastlight}
 \begin{luacode}
-  target = "experience"
+  target = "education"
   spec = "resources/resume_content.yaml"
   dofile("content_loader.lua")
 \end{luacode}
 \end{mypagebox}
 
-
-\def\categoryname{\HUGE{\textsc{Education}}}
+\pagecolor{softcol}
+\def\categoryname{\huge{\textsc{Experience}}}
 \settowidth{\categorylength}{\makebox[0pt][l][\categoryname]}
 \colorlet{linecol}{themecontrastlight}
 \begin{mypagebox}[\shortstack{
@@ -236,7 +257,7 @@
      \textcolor{themelight}{\rule{\categorylength}{2pt}}
    }]{softcol}
 \begin{luacode}
-  target = "education"
+  target = "experience"
   spec = "resources/resume_content.yaml"
   dofile("content_loader.lua")
 \end{luacode}
